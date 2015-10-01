@@ -8,9 +8,9 @@ class App
 
     public function __construct() //php5 standaard
     {
-        echo "test";
+
         $url = $this->parseUrl();
-        print_r($url);//voor test print opgegeven url variabelen
+        //print_r($url);//voor test print opgegeven url variabelen
 
         if(file_exists('../app/controllers/' . $url[0] . '.php')) //pakt de juiste contoller pakt de variable uit de url per /
         {
@@ -23,14 +23,15 @@ class App
         require_once '../app/controllers/' . $this->controller . '.php'; //require controller geset bij vorige functie hierboven of standaard
         //echo $this->controller;
         $this->controller = new $this->controller;
-        var_dump($this->controller);
+        //var_dump($this->controller);
+    //echo "url=" . $url[1];
         if(isset($url[1])) //moet ingevuld zijn 2e variable uit de url bv /home/index pakt deze index
         {
-            if(method_exists($this>controller, $url[1])) //check of er een method is met die naam op de controller
+            //var_dump(method_exists($this->controller, $url[1]));
+            if(method_exists($this->controller, $url[1])) //check of er een method is met die naam op de controller
             {
-                echo"ok";
-            }else{
-                echo"notok";
+                $this->method = $url[1]; //set variable method met current method
+                unset($url[1]);
             }
         }
 
