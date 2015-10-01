@@ -9,20 +9,37 @@ class App
     public function __construct() //php5 standaard
     {
         echo "test";
-       print_r($this->parseUrl()); //testen kan al met ?url=test
+        $url = $this->parseUrl();
+        print_r($url);//voor test print opgegeven url variabelen
 
-        if(file_exists('../app/controllers/x.php' . $url[0] . 'php'))
+        if(file_exists('../app/controllers/' . $url[0] . '.php')) //pakt de juiste contoller pakt de variable uit de url per /
         {
-
+            $this->controller = $url[0];
+            unset($url[0]);
+        }else{
+            echo " a";
         }
+
+        require_once '../app/controllers/' . $this->controller . '.php'; //require controller geset bij vorige functie hierboven of standaard
+        //echo $this->controller;
+        $this->controller = new $this->controller;
+        var_dump($this->controller);
+        if(isset($url[1])) //moet ingevuld zijn 2e variable uit de url bv /home/index pakt deze index
+        {
+            if(method_exists($this>controller, $url[1])) //check of er een method is met die naam op de controller
+            {
+                echo"ok";
+            }else{
+                echo"notok";
+            }
+        }
+
     }
 
-    protected function parseUrl() //exploding trimming sanatized url. geeft verschilende links in de url
+    public function parseUrl() //exploding trimming sanatized url. geeft verschilende links in de url
     {
-        if(isset($_GET['url'])){ //let op htaccesfile zo aanpassen zodat url gepost word als url
-            //testen kan al met ?url=test
-            echo $_GET['url'];
-            return $url = explode(filter_var(rtrim($_GET['url'], '/'), FILTER_SANITIZE_URL));
+        if(isset($_GET['url'])){
+            return $url = explode('/', filter_var(trim($_GET['url'],'/'), FILTER_SANITIZE_URL));
         }
     }
 }
