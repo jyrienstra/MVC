@@ -9,6 +9,6 @@ class Home extends Controller
     }
     public function test()
     {
-
+        echo'functie test in class home';
     }
 }

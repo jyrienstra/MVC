@@ -33,7 +33,9 @@ class App
 
           $this->parameters = $url ? array_values($url) : []; //checkt of url content heeft anders empty object
         //call_user_func_array('Home::index' array('index')); //Call a callback with an array of parameters
+       print_r($this->controller);
         call_user_func_array([$this->controller,$this->method], $this->parameters);
+
     }
 
     public function parseUrl() //exploding trimming sanatized url. geeft verschilende links in de url
