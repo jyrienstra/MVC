@@ -1,14 +1,15 @@
 <?php
-
+//var_dump("expression");
 class Test extends Controller
 {
-    public function index()
+    public function index($a = '')
     {
-        echo "a";
-        var_dump('/test/index');
+        echo $a;
+        echo "/test/index";
+        //var_dump('/home/index');
     }
-    public function test()
+    public function bier()
     {
-        echo'functie test in class test';
+        echo'functie bier in class test';
     }
 }

@@ -27,13 +27,13 @@ class App
             if(method_exists($this->controller, $url[1])) //check of er een method is met die naam op de controller
             {
                 $this->method = $url[1]; //set variable method met current method
-                //unset($url[1]);
+                unset($url[1]);
             }
         }
 
           $this->parameters = $url ? array_values($url) : []; //checkt of url content heeft anders empty object
         //call_user_func_array('Home::index' array('index')); //Call a callback with an array of parameters
-       print_r($this->controller);
+
         call_user_func_array([$this->controller,$this->method], $this->parameters);
 
     }
